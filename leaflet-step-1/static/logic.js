@@ -51,8 +51,8 @@ function getColor(mags) {
             return "#eecc00";
         case mags > 1:
             return "#d4ee00";
-        case mags < 1:
-            return "98ee00";
+        default:
+            return "#98ee00"
         }
 }
 
@@ -80,7 +80,7 @@ d3.json(dataURL, function(data) {
 
         coords.push(L.circle([data[1], data[0]], {
             stroke: true,
-            fillOpacity: .75,
+            fillOpacity: .90,
             fillColor: getColor(mags),
             color: getColor(mags),
             radius: getRadius(mags),
