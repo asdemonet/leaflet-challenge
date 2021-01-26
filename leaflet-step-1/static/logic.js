@@ -51,7 +51,7 @@ function getColor(mags) {
             return "#eecc00";
         case mags > 1:
             return "#d4ee00";
-        default:
+        case mags < 1:
             return "98ee00";
         }
 }
@@ -93,23 +93,22 @@ d3.json(dataURL, function(data) {
 
 earthquakesLayer.addTo(myMap)
 
-var colors = ["#98ee00", "#d4ee00", "#eecc00", "#ee9c00",  "#ea822c", "ea2c2c"]
-var scale = [1, 2, 3, 4, 5];
-
 var legend = L.control({
     position: "bottomright"
 });
 
-legend.onAdd = function() {
-    var div = L.DomUtil.create("div", "legend");
-
-    div.innerHTML = "<h3> Magnitude </h3>"
-    
-    for(var i = 0; i<colors.length; i++) {
-        div.innerHTML += `<svg class="squares" style='background-color: ${colors[i]}'> <p> ${i} - ${i+1} </p> </svg>`
+legend.onAdd = function () {
+    var div = L.DomUtil.create('div', "legend"),
+        mag = ["0-1", "1-2", "2-3", "3-4", "4-5", "5+"],
+        colors = ["#98ee00", "#d4ee00", "#eecc00", "#ee9c00",  "#ea822c", "ea2c2c"];
+    for (var i = 0; i < mag.length; i++) {
+        div.innerHTML +=
+            '<svg class="squares" style="background-color:' + colors[i] + '"></svg> ' +
+            mag[i] + '<br>'
     }
-    return div
-}
+    return div;
+};
+
 legend.addTo(myMap)
 // console.log(coords) 
 
